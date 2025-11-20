@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校友圈 - 校友录</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>校友录</h1>
+        <p>欢迎校友！以下是已认证校友的公开信息。</p>
+        <div class="alumni-actions">
+            <a href="my_resource.html" class="button">我的资源管理</a>
+            <a href="index.html" class="button logout-button">退出登录</a>
+        </div>
+        
+        <div id="alumniList" class="alumni-grid">
+            </div>
+
+        <div class="footer-links">
+            <a href="privacy_policy.html">《隐私政策》</a>
+            <a href="terms_of_service.html">《用户协议》</a>
+        </div>
+    </div>
+
+    <script src="static/js/data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const alumniListDiv = document.getElementById('alumniList');
+            // 模拟从后端获取校友数据 (实际应通过API)
+            if (MOCK_ALUMNI_DATA && MOCK_ALUMNI_DATA.length > 0) {
+                MOCK_ALUMNI_DATA.forEach(alumnus => {
+                    const alumniCard = document.createElement('div');
+                    alumniCard.className = 'alumni-card';
+                    alumniCard.innerHTML = `
+                        <h3>${alumnus.name}</h3>
+                        <p><strong>专业:</strong> ${alumnus.major}</p>
+                        <p><strong>公司:</strong> ${alumnus.company}</p>
+                        <p><strong>邮箱:</strong> <a href="mailto:${alumnus.email}">${alumnus.email}</a></p>
+                        ${alumnus.resource ? `<p class="resource-display"><strong>可提供资源:</strong> ${alumnus.resource}</p>` : ''}
+                    `;
+                    alumniListDiv.appendChild(alumniCard);
+                });
+            } else {
+                alumniListDiv.innerHTML = '<p>暂无校友信息。</p>';
+            }
+        });
+    </script>
+</body>
+</html>

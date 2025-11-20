@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校友圈 - 我的资源</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>我的资源管理</h1>
+        <p>在这里，您可以管理您的个人资源信息。</p>
+
+        <div class="form-group">
+            <label for="resourceInput">我的可提供资源:</label>
+            <textarea id="resourceInput" placeholder="请输入您可提供的资源描述（限500字）"></textarea>
+        </div>
+        <button onclick="publishResource()">发布/更新资源</button>
+        <button onclick="deleteResource()" class="delete-button">删除资源</button>
+        <p id="resourceMessage" class="info-message"></p>
+
+        <p class="explanation">
+            <em>本页面为演示功能。在实际部署中，资源信息将通过后端 API 安全存储和管理，您可以自行决定公布时常，并可随时删除。</em>
+        </p>
+
+        <div class="alumni-actions">
+            <a href="alumni_list.html" class="button">返回校友录</a>
+            <a href="index.html" class="button logout-button">退出登录</a>
+        </div>
+
+        <div class="footer-links">
+            <a href="privacy_policy.html">《隐私政策》</a>
+            <a href="terms_of_service.html">《用户协议》</a>
+        </div>
+    </div>
+
+    <script>
+        // 模拟当前登录用户（演示目的）
+        const CURRENT_USER_ID = "mock_user_1"; 
+        const MOCK_RESOURCE_KEY = `resource_${CURRENT_USER_ID}`; // 使用localStorage模拟存储
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const resourceInput = document.getElementById('resourceInput');
+            const storedResource = localStorage.getItem(MOCK_RESOURCE_KEY);
+            if (storedResource) {
+                resourceInput.value = storedResource;
+            }
+        });
+
+        function publishResource() {
+            const resourceInput = document.getElementById('resourceInput');
+            const resourceMessage = document.getElementById('resourceMessage');
+            const description = resourceInput.value.trim();
+
+            if (description) {
+                // 模拟保存到后端
+                localStorage.setItem(MOCK_RESOURCE_KEY, description);
+                resourceMessage.textContent = "资源已成功发布/更新！实际后端会存储数据并进行展示。";
+                resourceMessage.style.color = "green";
+            } else {
+                resourceMessage.textContent = "资源描述不能为空。";
+                resourceMessage.style.color = "red";
+            }
+        }
+
+        function deleteResource() {
+            const resourceInput = document.getElementById('resourceInput');
+            const resourceMessage = document.getElementById('resourceMessage');
+            
+            resourceInput.value = '';
+            // 模拟从后端删除
+            localStorage.removeItem(MOCK_RESOURCE_KEY);
+            resourceMessage.textContent = "资源已成功删除！实际后端会从数据库中移除。";
+            resourceMessage.style.color = "green";
+        }
+    </script>
+</body>
+</html>

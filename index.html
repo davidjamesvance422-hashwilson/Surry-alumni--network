@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>校友圈 - 登录</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>欢迎来到校友圈</h1>
+        <p>请通过内部口令验证您的校友身份，以访问校友录。</p>
+        <div class="form-group">
+            <label for="passphraseInput">项目口令:</label>
+            <input type="password" id="passphraseInput" placeholder="请输入口令">
+        </div>
+        <button onclick="verifyPassphrase()">验证身份</button>
+        <p id="message" class="error-message"></p>
+
+        <div class="footer-links">
+            <a href="privacy_policy.html">《隐私政策》</a>
+            <a href="terms_of_service.html">《用户协议》</a>
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ 警告：此口令在前端暴露，仅用于项目演示和评估！
+        const CORRECT_PASSPHRASE = "洗碗布"; 
+        const ALUMNI_LIST_URL = "alumni_list.html";
+
+        function verifyPassphrase() {
+            const input = document.getElementById('passphraseInput').value;
+            const messageElement = document.getElementById('message');
+
+            if (input === CORRECT_PASSPHRASE) {
+                messageElement.textContent = "验证成功！正在进入校友录...";
+                messageElement.style.color = "green";
+                // 模拟认证通过，跳转到校友录页面
+                setTimeout(() => {
+                    window.location.href = ALUMNI_LIST_URL;
+                }, 1000);
+            } else {
+                messageElement.textContent = "口令错误，请重试。";
+                messageElement.style.color = "red";
+            }
+        }
+    </script>
+</body>
+</html>
